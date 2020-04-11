@@ -131,7 +131,7 @@ body {
     }
 
     &__search:before {
-      //content: url('../assets/img/v-fall/search.png');
+      content: url('~img/search.png');
       width: 16px;
       height: 16px;
       position: absolute;
@@ -193,7 +193,7 @@ body {
 
       &__prev {
         margin-left: 80px;
-        //background: transparent url(../assets/img/v-fall/arrow.png)no-repeat;
+        //background: transparent url(~assets/img/v-fall/arrow.png)no-repeat;
         width: 27px;
         height: 42px;
         border: none;
@@ -201,7 +201,7 @@ body {
         cursor: pointer;
 
         &:hover {
-          //background: transparent url(../assets/img/v-fall/arrow-hover.png)no-repeat;
+          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
           transform: rotate(-180deg);
         }
       }
@@ -209,7 +209,7 @@ body {
       &__next {
         margin-right: 80px;
         margin-left: 80px;
-        //background: transparent url(../assets/img/v-fall/arrow.png)no-repeat;
+        //background: transparent url(~assets/img/v-fall/arrow.png)no-repeat;
         width: 27px;
         height: 42px;
         border: none;
@@ -218,7 +218,7 @@ body {
         cursor: pointer;
 
         &:hover {
-          //background: transparent url(../assets/img/v-fall/arrow-hover.png)no-repeat;
+          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
           transform: rotate(0deg);
         }
       }
@@ -279,7 +279,7 @@ body {
         }
 
         &-left {
-          //background: transparent url(../assets/img/v-fall/arrow-hover.png)no-repeat;
+          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
           width: 27px;
           height: 42px;
           margin-left: 24px;
@@ -292,7 +292,7 @@ body {
         }
 
         &-right {
-          //background: transparent url(../assets/img/v-fall/arrow-hover.png)no-repeat;
+          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
           width: 27px;
           height: 42px;
           margin-right: 24px;
@@ -533,7 +533,7 @@ body {
       }
 
       &-btn {
-        //background: url(../assets/img/v-fall/play.png)no-repeat;
+        background: url('/img/v-fall/play.png')no-repeat;
         margin: auto;
         display: block;
         border: none;
