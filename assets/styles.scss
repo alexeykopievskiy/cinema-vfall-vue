@@ -129,17 +129,6 @@ body {
         color: #fff;
       }
     }
-
-    &__search:before {
-      content: url('~img/search.png');
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      left: 21px;
-      top: 13px;
-      display: block;
-      z-index: 1;
-    }
   }
 
   &-main {
@@ -188,38 +177,6 @@ body {
         &:last-child {
           font-weight: 700;
           margin-right: 0;
-        }
-      }
-
-      &__prev {
-        margin-left: 80px;
-        //background: transparent url(~assets/img/v-fall/arrow.png)no-repeat;
-        width: 27px;
-        height: 42px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-
-        &:hover {
-          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
-          transform: rotate(-180deg);
-        }
-      }
-
-      &__next {
-        margin-right: 80px;
-        margin-left: 80px;
-        //background: transparent url(~assets/img/v-fall/arrow.png)no-repeat;
-        width: 27px;
-        height: 42px;
-        border: none;
-        outline: none;
-        transform: rotate(-180deg);
-        cursor: pointer;
-
-        &:hover {
-          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
-          transform: rotate(0deg);
         }
       }
     }
@@ -276,31 +233,6 @@ body {
           display: flex;
           justify-content: space-between;
           top: 49%;
-        }
-
-        &-left {
-          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
-          width: 27px;
-          height: 42px;
-          margin-left: 24px;
-          transform: rotate(-180deg);
-          border: none;
-          outline: none;
-          cursor: pointer;
-          position: relative;
-          z-index: 100;
-        }
-
-        &-right {
-          //background: transparent url(~assets/img/v-fall/arrow-hover.png)no-repeat;
-          width: 27px;
-          height: 42px;
-          margin-right: 24px;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          position: relative;
-          z-index: 100;
         }
       }
 

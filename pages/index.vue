@@ -157,14 +157,75 @@
 export default {
   methods: {
     openVideo(i) {
-      this.$router.push("/video/" + i)
+      this.$router.push("/video/" + i);
     },
     openNews(i) {
-      this.$router.push("/news/" + i)
+      this.$router.push("/news/" + i);
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss">
+.v-fall-main {
+  &-slide {
+    &__prev {
+      margin-left: 80px;
+      background: transparent url("../assets/img/arrow.png") no-repeat;
+      width: 27px;
+      height: 42px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+        background: transparent url("../assets/img/arrow-hover.png") no-repeat;
+        transform: rotate(-180deg);
+      }
+    }
+    &__next {
+      margin-right: 80px;
+      margin-left: 80px;
+      background: transparent url("../assets/img/arrow.png") no-repeat;
+      width: 27px;
+      height: 42px;
+      border: none;
+      outline: none;
+      transform: rotate(-180deg);
+      cursor: pointer;
+
+      &:hover {
+        background: transparent url("../assets/img/arrow-hover.png") no-repeat;
+        transform: rotate(0deg);
+      }
+    }
+  }
+  &-block {
+    &__carousel {
+      &-left {
+        background: transparent url("../assets/img/arrow-hover.png") no-repeat;
+        width: 27px;
+        height: 42px;
+        margin-left: 24px;
+        transform: rotate(-180deg);
+        border: none;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 100;
+      }
+      &-right {
+        background: transparent url("../assets/img/arrow-hover.png") no-repeat;
+        width: 27px;
+        height: 42px;
+        margin-right: 24px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 100;
+      }
+    }
+  }
+}
 </style>
