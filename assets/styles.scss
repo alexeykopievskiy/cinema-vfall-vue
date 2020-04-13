@@ -388,7 +388,11 @@ body {
 
     &__content {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+
+      &-poster {
+        margin-right: 30px;
+      }
 
       &-description {
         max-width: 580px;

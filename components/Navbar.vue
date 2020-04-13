@@ -1,9 +1,26 @@
 <template>
-  <nav class="v-fall-header__nav">
-    <nuxt-link class="v-fall-header__link" to="/new">Новинки</nuxt-link>
-    <nuxt-link class="v-fall-header__link" to="/films">Фильмы</nuxt-link>
-    <nuxt-link class="v-fall-header__link" to="/cartoons">Мультфильмы</nuxt-link>
-    <nuxt-link class="v-fall-header__link" to="/news">Новости</nuxt-link>
-    <nuxt-link class="v-fall-header__link" to="/contacts">Контакты</nuxt-link>
+  <nav class="v-fall-header__nav" v-if="menu">
+    <nuxt-link
+      prefetch
+      v-for="item in menu"
+      :key="item.id"
+      class="v-fall-header__link"
+      :to="item.url"
+    >{{item.name}}</nuxt-link>
   </nav>
 </template>
+
+<script>
+export default {
+  data: () => {
+    return {
+      menu: null
+    };
+  },
+  mounted() {
+    this.$axios.$get("https://api.videout.ru/source").then(response => {
+      this.menu = response.toggleMenu;
+    });
+  }
+};
+</script>

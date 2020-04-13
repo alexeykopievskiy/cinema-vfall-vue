@@ -2,15 +2,19 @@
   <main class="v-fall-article v-fall-article">
     <div class="v-fall__container v-fall__container--white v-fall__container--article">
       <section class="v-fall-article-block grid grid-column">
-        <h2
-          class="v-fall-article-block__header"
-        >Славься, Рим: Как и зачем Netflix пытался купить «Оскар»</h2>
+        <h2 class="v-fall-article-block__header" v-if="article">{{article.title}}</h2>
         <div class="v-fall-article-block__poster">
-          <img class="v-fall-article-block__img" src="~assets/img/article1.jpg" alt />
+          <img
+            class="v-fall-article-block__img"
+            style="width: 800px"
+            v-if="article"
+            :src="article.poster"
+            alt
+          />
         </div>
-        <div class="v-fall-article-block__content grid">
-          <div class="v-fall-article-block__content--left">
-            <h3
+        <div class="v-fall-article-block__content grid" v-if="article">
+          <div class="v-fall-article-block__content--left" v-html="article.content">
+            <!--<h3
               class="v-fall-article-block__subheader"
             >Фильм Netflix едва не выиграл главную награду — вот, пожалуй, главная несостоявшаяся сенсация недавней оскаровской церемонии. Впрочем, «Рома» Альфонсо Куарона, заработавший три статуэтки, достаточно близко подошел и к главному призу, так что голливудским студиям не стоит расслабляться.</h3>
             <p
@@ -44,19 +48,17 @@
             <img class="v-fall-article-block__subposter" src="~assets/img/article3.jpg" alt />
             <p
               class="v-fall-article-block__text"
-            >Многочисленные награды фильму — в том числе и цеховые, например за операторскую работу — доказывают, что это не так. «Рома» снят как обычное кино. К тому же среди номинантов этого года был «правильный» аналог Ромы — «Холодная война» Павла Павликовского, такой же черно-белый арт-ретрофильм на иностранном языке, только вышедший в нормальный кинотеатральный прокат (и с неплохими результатами). Три номинации («Лучший режиссер», «Лучший оператор» и «Лучший иностранный фильм») и ни одного приза — очевидно, без колоссальных усилий Netflix у Куарона был бы аналогичный оскаровский счет (даже уже имеющийся у режиссера «Оскар» за голливудское космическое кино с Сандрой Буллок и Джорджем Клуни вряд ли бы что-то серьезно изменил в судьбе «Ромы»).</p>
+            >Многочисленные награды фильму — в том числе и цеховые, например за операторскую работу — доказывают, что это не так. «Рома» снят как обычное кино. К тому же среди номинантов этого года был «правильный» аналог Ромы — «Холодная война» Павла Павликовского, такой же черно-белый арт-ретрофильм на иностранном языке, только вышедший в нормальный кинотеатральный прокат (и с неплохими результатами). Три номинации («Лучший режиссер», «Лучший оператор» и «Лучший иностранный фильм») и ни одного приза — очевидно, без колоссальных усилий Netflix у Куарона был бы аналогичный оскаровский счет (даже уже имеющийся у режиссера «Оскар» за голливудское космическое кино с Сандрой Буллок и Джорджем Клуни вряд ли бы что-то серьезно изменил в судьбе «Ромы»).</p>-->
           </div>
           <div class="v-fall-article-block__content--right">
-            <div class="v-fall-article-block__promo">
+            <!--<div class="v-fall-article-block__promo">
               <img src="~assets/img/promo.jpg" />
-            </div>
-            <div class="v-fall-article-block__related">
+            </div>-->
+            <div class="v-fall-article-block__related" v-if="related">
               <p class="v-fall-article-block__related-header">Смотрите также</p>
               <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-                <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
-                <p
-                  class="v-fall-main-block__text"
-                >Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id</p>
+                <img class="v-fall-main-block__img" :src="related.image" alt />
+                <p class="v-fall-main-block__text">{{related.title}}</p>
               </a>
             </div>
           </div>
@@ -65,3 +67,22 @@
     </div>
   </main>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      article: null,
+      related: null
+    };
+  },
+  mounted() {
+    this.$axios
+      .$get("https://api.videout.ru" + this.$route.path)
+      .then(response => {
+        this.article = response.article;
+        this.related = response.related;
+      });
+  }
+};
+</script>

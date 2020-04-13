@@ -42,26 +42,29 @@
         </div>
       </div>
     </section>-->
-    <div class="v-fall-main-slide__controls">
+    <!--<div class="v-fall-main-slide__controls">
       <button class="v-fall-main-slide__prev"></button>
       <button class="v-fall-main-slide__next"></button>
-    </div>
-    <div class="v-fall__container v-fall__container--white v-fall__container--main">
+    </div>-->
+    <div
+      class="v-fall__container v-fall__container--white v-fall__container--main"
+      style="padding-top: 10px; margin-top: 10px;"
+    >
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Новинки</h2>
-        <div class="v-fall-main-block__container">
+        <div class="v-fall-main-block__container" v-if="hot">
           <a
-            @click.prevent="openVideo(i)"
-            v-for="i of 6"
-            :key="i"
+            @click.prevent="openVideo(item.url)"
+            v-for="item in hot.slice(0, 6)"
+            :key="item.id"
             class="v-fall-main-block__item"
             href="#"
           >
-            <img class="v-fall-main-block__img" src="~assets/img/img1.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
             </p>
           </a>
         </div>
@@ -69,27 +72,28 @@
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Фильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
-        <div class="v-fall-main-block__container">
+        <div class="v-fall-main-block__container" v-if="films">
           <a
-            @click.prevent="openVideo(i)"
-            v-for="i of 6"
-            :key="i"
+            @click.prevent="openVideo(item.url)"
+            v-for="item in films.slice(0, 6)"
+            :key="item.id"
             class="v-fall-main-block__item"
             href="#"
           >
-            <img class="v-fall-main-block__img" src="~assets/img/img1.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
             </p>
           </a>
         </div>
       </section>
-      <section class="v-fall-main-block v-fall-main-block__carousel">
-        <h2 class="v-fall-main-block__header">Planeta online</h2>
-        <div
-          class="v-fall-main-block__container v-fall-main-block__container-carousel owl-carousel"
+      <!--<section class="v-fall-main-block v-fall-main-block__carousel">
+      <h2 class="v-fall-main-block__header">Planeta online</h2>-->
+      <!--<no-ssr>
+        <carousel
+          class="v-fall-main-block__container v-fall-main-block__container-carousel"
         >
           <a
             @click.prevent="openVideo(i)"
@@ -105,28 +109,29 @@
               <span class="v-fall-main-block__elem">Мелодрамма</span>
             </p>
           </a>
-        </div>
-        <div class="v-fall-main-block__carousel-btn">
+        </carousel>
+      </no-ssr>-->
+      <!--<div class="v-fall-main-block__carousel-btn">
           <button class="v-fall-main-block__carousel-left"></button>
           <button class="v-fall-main-block__carousel-right"></button>
         </div>
-      </section>
+      </section>-->
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Мультфильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
-        <div class="v-fall-main-block__container">
+        <div class="v-fall-main-block__container" v-if="cartoons">
           <a
-            @click.prevent="openVideo(i)"
-            v-for="i of 6"
-            :key="i"
+            @click.prevent="openVideo(item.url)"
+            v-for="item in cartoons.slice(0, 6)"
+            :key="item.id"
             class="v-fall-main-block__item"
             href="#"
           >
-            <img class="v-fall-main-block__img" src="~assets/img/img1.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category}}</span>
             </p>
           </a>
         </div>
@@ -134,18 +139,18 @@
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Новости</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
-        <div class="v-fall-main-block__container">
+        <div class="v-fall-main-block__container" v-if="news">
           <a
-            @click.prevent="openNews(i)"
-            v-for="i of 4"
-            :key="i"
+            @click.prevent="openNews(item.url)"
+            v-for="item of news.slice(0, 4)"
+            :key="item.id"
             class="v-fall-main-block__item v-fall-main-block__item--lg"
             href="#"
           >
-            <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
+            <img class="v-fall-main-block__img" :src="item.image" alt />
             <p
               class="v-fall-main-block__text"
-            >Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id</p>
+            >{{item.title}}</p>
           </a>
         </div>
       </section>
@@ -154,13 +159,40 @@
 </template>
 
 <script>
+//import carousel from 'vue-owl-carousel'
+let requestNew = 'https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate'
+let requestFilms = 'https://api.videout.ru/search/'
+let requestCartoons = 'https://api.videout.ru/search/?genre=73'
+let requestNews = 'https://api.videout.ru/news'
+
 export default {
+  data: () => {
+    return {
+      source: null,
+      hot: null,
+      films: null,
+      cartoons: null,
+      news: null
+    };
+  },
   methods: {
     openVideo(i) {
-      this.$router.push("/video/" + i);
+      this.$router.push(i);
     },
     openNews(i) {
-      this.$router.push("/news/" + i);
+      this.$router.push(i);
+    }
+  },
+  async asyncData({$axios, params}) {
+    let responseNew = await $axios.get(requestNew)
+    let responseFilms = await $axios.get(requestFilms)
+    let responeCartoons = await $axios.get(requestCartoons)
+    let responseNews = await $axios.get(requestNews)
+    return {
+      hot: responseNew.data.data,
+      films: responseFilms.data.data,
+      cartoons: responeCartoons.data.data,
+      news: responseNews.data.data
     }
   }
 };
