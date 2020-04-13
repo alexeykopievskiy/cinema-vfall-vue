@@ -51,25 +51,6 @@
       style="padding-top: 10px; margin-top: 10px;"
     >
       <section class="v-fall-main-block">
-        <h2 class="v-fall-main-block__header">Новинки</h2>
-        <div class="v-fall-main-block__container" v-if="hot">
-          <a
-            @click.prevent="openVideo(item.url)"
-            v-for="item in hot.slice(0, 6)"
-            :key="item.id"
-            class="v-fall-main-block__item"
-            href="#"
-          >
-            <img class="v-fall-main-block__img" :src="item.image" alt />
-            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
-            <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">{{item.year}}</span>
-              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
-            </p>
-          </a>
-        </div>
-      </section>
-      <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Фильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
         <div class="v-fall-main-block__container" v-if="films">
@@ -90,15 +71,15 @@
         </div>
       </section>
       <!--<section class="v-fall-main-block v-fall-main-block__carousel">
-      <h2 class="v-fall-main-block__header">Planeta online</h2>-->
+      <h2 class="v-fall-main-block__header">РЕКОМЕНДУЕМ ПОСМОТРЕТЬ</h2>-->
       <!--<no-ssr>
         <carousel
           class="v-fall-main-block__container v-fall-main-block__container-carousel"
         >
           <a
             @click.prevent="openVideo(i)"
-            v-for="i of 4"
-            :key="i"
+            v-for="item in recommendations"
+            :key="item.id"
             class="v-fall-main-block__item v-fall-main-block__item--lg"
             href="#"
           >
@@ -160,6 +141,7 @@
 
 <script>
 //import carousel from 'vue-owl-carousel'
+let requestUrl = 'https://api.videout.ru'
 let requestNew = 'https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate'
 let requestFilms = 'https://api.videout.ru/search/'
 let requestCartoons = 'https://api.videout.ru/search/?genre=73'
@@ -184,15 +166,12 @@ export default {
     }
   },
   async asyncData({$axios, params}) {
-    let responseNew = await $axios.get(requestNew)
-    let responseFilms = await $axios.get(requestFilms)
-    let responeCartoons = await $axios.get(requestCartoons)
-    let responseNews = await $axios.get(requestNews)
+    let response = await $axios.get(requestUrl)
     return {
-      hot: responseNew.data.data,
-      films: responseFilms.data.data,
-      cartoons: responeCartoons.data.data,
-      news: responseNews.data.data
+      recommendations: response.data.recommendations,
+      films: response.data.movies,
+      cartoons: response.data.cartoons,
+      news: response.data.news
     }
   }
 };
