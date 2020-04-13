@@ -51,8 +51,26 @@
       style="padding-top: 10px; margin-top: 10px;"
     >
       <section class="v-fall-main-block">
+        <h2 class="v-fall-main-block__header">РЕКОМЕНДУЕМ ПОСМОТРЕТЬ</h2>
+        <div class="v-fall-main-block__container" v-if="films">
+          <a
+            @click.prevent="openVideo(item.url)"
+            v-for="item in recommendations.slice(0, 6)"
+            :key="item.id"
+            class="v-fall-main-block__item"
+            href="#"
+          >
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
+            <p class="v-fall-main-block__content">
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
+            </p>
+          </a>
+        </div>
+      </section>
+      <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Фильмы</h2>
-        <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
         <div class="v-fall-main-block__container" v-if="films">
           <a
             @click.prevent="openVideo(item.url)"
@@ -129,9 +147,7 @@
             href="#"
           >
             <img class="v-fall-main-block__img" :src="item.image" alt />
-            <p
-              class="v-fall-main-block__text"
-            >{{item.title}}</p>
+            <p class="v-fall-main-block__text">{{item.title}}</p>
           </a>
         </div>
       </section>
@@ -141,11 +157,12 @@
 
 <script>
 //import carousel from 'vue-owl-carousel'
-let requestUrl = 'https://api.videout.ru'
-let requestNew = 'https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate'
-let requestFilms = 'https://api.videout.ru/search/'
-let requestCartoons = 'https://api.videout.ru/search/?genre=73'
-let requestNews = 'https://api.videout.ru/news'
+let requestUrl = "https://api.videout.ru";
+let requestNew =
+  "https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate";
+let requestFilms = "https://api.videout.ru/search/";
+let requestCartoons = "https://api.videout.ru/search/?genre=73";
+let requestNews = "https://api.videout.ru/news";
 
 export default {
   data: () => {
@@ -165,14 +182,14 @@ export default {
       this.$router.push(i);
     }
   },
-  async asyncData({$axios, params}) {
-    let response = await $axios.get(requestUrl)
+  async asyncData({ $axios, params }) {
+    let response = await $axios.get(requestUrl);
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
       cartoons: response.data.cartoons,
       news: response.data.news
-    }
+    };
   }
 };
 </script>
