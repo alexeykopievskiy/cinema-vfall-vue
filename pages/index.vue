@@ -52,7 +52,6 @@
           </a>
           <button slot="next" class="v-fall-main-block__carousel-right"></button>
         </carousel>
-        <div class="v-fall-main-block__carousel-btn"></div>
       </section>
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Мультфильмы</h2>
@@ -145,14 +144,14 @@ export default {
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
     let responseNews = await $axios.get(requestNews);
-    console.log(response, 'res')
+    console.log(response, "res");
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
       cartoons: response.data.cartoons,
       news: responseNews.data.data
     };
-  },
+  }
 };
 </script>
 
@@ -230,6 +229,11 @@ export default {
 }
 
 .owl-carousel.owl-loaded {
-  display: flex!important;
+  display: flex !important;
+}
+
+.v-fall-main-block__img {
+  width: 100%;
+  height: auto;
 }
 </style>

@@ -69,3 +69,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.v-fall-main--page-news {
+  .v-fall-main-block__item--lg .v-fall-main-block__img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>

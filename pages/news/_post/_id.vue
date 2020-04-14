@@ -18,7 +18,7 @@
             <div class="v-fall-article-block__promo" v-if="ad" v-html="ad"></div>
             <div class="v-fall-article-block__related" v-if="related">
               <p class="v-fall-article-block__related-header">Смотрите также</p>
-              <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
+              <a @click.prevent="openNews(related.url)" class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
                 <img class="v-fall-main-block__img" :src="related.image" alt />
                 <p class="v-fall-main-block__text">{{related.title}}</p>
               </a>
@@ -38,6 +38,11 @@ export default {
       related: null,
       ad: null
     };
+  },
+  methods: {
+    openNews(i) {
+      this.$router.push(i);
+    },
   },
   async asyncData({ $axios, params }) {
     const { article, related, ad } = await $axios.$get(

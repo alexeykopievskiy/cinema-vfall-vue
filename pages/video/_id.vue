@@ -50,57 +50,49 @@
           </a>
         </div>
       </section>
-      <!--<section class="v-fall__container--white v-fall-inner__block-container">
+      <section class="v-fall__container--white v-fall-inner__block-container">
         <div class="v-fall-main-block v-fall-main-block__carousel">
-          <h2 class="v-fall-main-block__header">Planeta online</h2>
-          <div
-            class="v-fall-main-block__container v-fall-main-block__container-carousel owl-carousel"
+          <h2 class="v-fall-main-block__header">Рекумондуем посмотреть</h2>
+          <carousel
+            v-if="isNuxtReady"
+            :items="4"
+            :loop="true"
+            :margin="26"
+            :autoWidth="true"
+            :nav="false"
+            :dots="false"
+            class="v-fall-main-block__container v-fall-main-block__container-carousel"
           >
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
-              <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <button slot="prev" class="v-fall-main-block__carousel-left"></button>
+            <a
+              @click.prevent="openVideo(item.url)"
+              v-for="item in recommendations"
+              :key="item.id"
+              class="v-fall-main-block__item v-fall-main-block__item--lg"
+              href="#"
+            >
+              <img class="v-fall-main-block__img" :src="item.image" alt />
+              <h3 class="v-fall-main-block__title">{{item.title}}</h3>
               <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2011</span>
-                <span class="v-fall-main-block__elem">Мелодрамма</span>
+                <span class="v-fall-main-block__elem">{{item.year}}</span>
+                <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
               </p>
             </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img6.jpg" alt />
-              <h3 class="v-fall-main-block__title">Стекло</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2019</span>
-                <span class="v-fall-main-block__elem">Боевик</span>
-              </p>
-            </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img7.jpg" alt />
-              <h3 class="v-fall-main-block__title">Море соблазна</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2019</span>
-                <span class="v-fall-main-block__elem">Боевик</span>
-              </p>
-            </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img8.jpg" alt />
-              <h3 class="v-fall-main-block__title">Фаворитка</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2011</span>
-                <span class="v-fall-main-block__elem">Мелодрамма</span>
-              </p>
-            </a>
-          </div>
-          <div class="v-fall-main-block__carousel-btn">
-            <button class="v-fall-main-block__carousel-left"></button>
-            <button class="v-fall-main-block__carousel-right"></button>
-          </div>
+            <button slot="next" class="v-fall-main-block__carousel-right"></button>
+          </carousel>
         </div>
-      </section>-->
+      </section>
     </div>
   </main>
 </template>
 
 <script>
+const carousel = () =>
+  window && window !== undefined ? import("v-owl-carousel") : null;
 export default {
+  components: {
+    carousel
+  },
   validate({ params }) {
     return /^\d+$/.test(params.id);
   },
@@ -108,7 +100,8 @@ export default {
     return {
       video: null,
       news: null,
-      recommendations: null
+      recommendations: null,
+      isNuxtReady: false
     };
   },
   methods: {
@@ -117,13 +110,29 @@ export default {
     }
   },
   mounted() {
-    this.$axios
-      .$get("https://api.videout.ru" + this.$route.fullPath)
-      .then(response => {
-        this.video = response.video;
-        this.news = response.news;
-        this.recommendations = response.recommendations;
+    const vm = this;
+    if (process.browser) {
+      window.onNuxtReady(app => {
+        vm.isNuxtReady = true;
       });
+    }
+  },
+  async asyncData({ $axios, params, route }) {
+    const { video, news, recommendations } = await $axios.$get(
+      "https://api.videout.ru" + route.fullPath
+    );
+
+    return {
+      video,
+      news,
+      recommendations
+    };
   }
 };
 </script>
+
+<style lang="scss">
+.v-fall-inner__block-container {
+  padding-top: 40px;
+}
+</style>
