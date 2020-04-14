@@ -145,6 +145,7 @@ export default {
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
     let responseNews = await $axios.get(requestNews);
+    console.log(response, 'res')
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
@@ -152,11 +153,6 @@ export default {
       news: responseNews.data.data
     };
   },
-  watch: {
-    films: function(newValue) {
-      console.log(newValue, "aaa");
-    }
-  }
 };
 </script>
 

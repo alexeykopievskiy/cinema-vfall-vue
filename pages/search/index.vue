@@ -2,12 +2,7 @@
   <main class="v-fall-main v-fall-main--page-list">
     <div class="v-fall__container v-fall__container--white v-fall__container--list">
       <section class="v-fall-main-block grid grid-column">
-        <h2
-          v-if="path == '/search/?genre=0&year=2019&country=0&sorting=rate'"
-          class="v-fall-main-block__header"
-        >Новинки</h2>
-        <h2 v-if="path == '/search/'" class="v-fall-main-block__header">Фильмы</h2>
-        <h2 v-if="path == '/search/?genre=73'" class="v-fall-main-block__header">Мультфильмы</h2>
+        <h2 class="v-fall-main-block__header">Будущий тайтл</h2>
         <div class="v-fall-main-block__container grid grid-wrap" v-if="videos">
           <a
             @click.prevent="openVideo(video.url)"
@@ -39,8 +34,7 @@ export default {
   data: () => {
     return {
       videos: null,
-      path: null
-    };
+    }
   },
   methods: {
     openVideo(i) {
@@ -49,27 +43,33 @@ export default {
     // Исправить счетчик потом
     loadMore() {
       this.$axios
-      .$get("https://api.videout.ru" + this.$route.fullPath + '&page=2')
-      .then(response => {
-        this.videos = this.videos.concat(response.data);
-      });
+        .$get("https://api.videout.ru" + this.$route.fullPath + "&page=" + (+this.page)+1)
+        .then(response => {
+          this.videos = this.videos.concat(response.data);
+          this.page = response.page
+          console.log(this.page, 'page')
+        });
     }
   },
-  mounted() {
-    this.$axios
-      .$get("https://api.videout.ru" + this.$route.fullPath)
-      .then(response => {
-        this.videos = response.data;
-      });
+  async asyncData({ $axios, params, route }) {
+    const {data, page, page_count} = await $axios.$get("https://api.videout.ru/" + route.fullPath);
+
+    return {
+      videos: data,
+      page, 
+      page_count
+    }
   },
   watch: {
-    $route() {
-      this.$axios
-        .$get("https://api.videout.ru" + this.$route.fullPath)
-        .then(response => {
-          this.path = this.$route.fullPath;
-          this.videos = response.data;
-        });
+    async $route() {
+      console.log("change");
+      const { data, page } = await this.$axios.$get(
+        "https://api.videout.ru" + this.$route.fullPath
+      );
+
+      this.videos = data
+      this.page = page
+      console.log(this.page, 'page')
     }
   }
 };
