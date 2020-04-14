@@ -30,10 +30,11 @@ export default {
       news: null
     }
   },
-  mounted() {
-    this.$axios.$get('https://api.videout.ru/news').then(response => (
-      this.news = response.data
-    ));
+  async asyncData ({ $axios, params }) {
+    const { data } = await $axios.$get("https://api.videout.ru/news");
+    return {
+      news: data
+    }
   },
   methods: {
     openNews(i) {

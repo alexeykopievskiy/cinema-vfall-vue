@@ -3,6 +3,7 @@
     <div class="v-fall__container v-fall__container--white v-fall__container--main">
       <section class="v-fall-main-block grid grid-column">
         <h2 class="v-fall-main-block__header">Новости</h2>
+        
         <div class="v-fall-main-block__container grid grid-wrap">
           <a
             href="#"
@@ -12,9 +13,7 @@
             class="v-fall-main-block__item v-fall-main-block__item--lg"
           >
             <img class="v-fall-main-block__img" :src="item.image" alt />
-            <p
-              class="v-fall-main-block__text"
-            >{{item.title}}</p>
+            <p class="v-fall-main-block__text">{{item.title}}</p>
           </a>
         </div>
         <button class="v-fall-main-block__btn btn btn-disabled" type="button">Загрузить еще</button>
@@ -28,16 +27,17 @@ export default {
   data() {
     return {
       news: null
-    }
+    };
   },
-  mounted() {
-    this.$axios.$get('https://api.videout.ru/news').then(response => (
-      this.news = response.data
-    ));
+  async asyncData ({ $axios, params }) {
+    const { data } = await $axios.$get("https://api.videout.ru/news/" + params.post);
+    return {
+      news: data
+    }
   },
   methods: {
     openNews(i) {
-      this.$router.push(i)
+      this.$router.push(i);
     }
   }
 };
