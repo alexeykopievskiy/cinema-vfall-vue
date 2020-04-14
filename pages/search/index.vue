@@ -34,49 +34,39 @@
 export default {
   data: () => {
     return {
+      loadBtn: true,
       videos: null,
-      loadBtn: true
+      page: null,
+      page_count: null
     };
   },
   methods: {
     openVideo(i) {
       this.$router.push(i);
     },
-    // Исправить счетчик потом
-    loadMore() {
+    async loadMore() {
       if (this.page != this.page_count) {
-        this.$axios
-          .$get(
-            "https://api.videout.ru" +
-              this.$route.fullPath +
-              "&limit=24&page=" +
-              ++this.page
-          )
-          .then(response => {
-            this.videos = this.videos.concat(response.data);
-            this.page = response.page;
-            console.log(response, "uiyutuytuytyutyutyutyu");
-            console.log(
-              this.page,
-              response.page,
-              response.page_count,
-              "pageoooo"
-            );
-          });
-      } else {
-        this.loadBtn = false;
+        const { data, page } = await this.$axios.$get(
+          "https://api.videout.ru" +
+            this.$route.fullPath +
+            "&limit=24&page=" +
+            ++this.page
+        );
+
+        if (this.page_count == page) this.loadBtn = false;
+        this.videos = this.videos.concat(data);
+
+        return {
+          page
+        };
       }
     }
   },
   async asyncData({ $axios, params, route }) {
-    const response = await $axios.$get(
-      "https://api.videout.ru/" + route.fullPath
-    );
-    //console.log(response, "lhljkljlkj");
     const { data, page, page_count, title } = await $axios.$get(
       "https://api.videout.ru/" + route.fullPath
     );
-
+    if (page_count == 1) this.loadBtn = false;
     return {
       videos: data,
       page,
@@ -86,13 +76,15 @@ export default {
   },
   watch: {
     async $route() {
-      const { data, page, title } = await this.$axios.$get(
+      const { data, page, title, page_count } = await this.$axios.$get(
         "https://api.videout.ru" + this.$route.fullPath
       );
-
       this.videos = data;
-      this.page = page;
-      this.title = title;
+
+      return {
+        page,
+        page_count
+      };
     }
   }
 };

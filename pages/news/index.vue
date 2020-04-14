@@ -12,12 +12,15 @@
             class="v-fall-main-block__item v-fall-main-block__item--lg"
           >
             <img class="v-fall-main-block__img" :src="item.image" alt />
-            <p
-              class="v-fall-main-block__text"
-            >{{item.title}}</p>
+            <p class="v-fall-main-block__text">{{item.title}}</p>
           </a>
         </div>
-        <button class="v-fall-main-block__btn btn btn-disabled" type="button">Загрузить еще</button>
+        <button
+          v-if="loadBtn"
+          class="v-fall-main-block__btn btn btn-disabled"
+          @click="loadMore()"
+          type="button"
+        >Загрузить еще</button>
       </section>
     </div>
   </main>
@@ -27,18 +30,41 @@
 export default {
   data() {
     return {
-      news: null
-    }
+      news: null,
+      loadBtn: true
+    };
   },
-  async asyncData ({ $axios, params }) {
-    const { data } = await $axios.$get("https://api.videout.ru/news");
+  async asyncData({ $axios, params }) {
+    const { data, page, page_count } = await $axios.$get(
+      "https://api.videout.ru/news"
+    );
+    if (page_count == 1) this.loadBtn = false;
     return {
-      news: data
-    }
+      news: data,
+      page,
+      page_count
+    };
   },
   methods: {
     openNews(i) {
-      this.$router.push(i)
+      this.$router.push(i);
+    },
+    async loadMore() {
+      if (this.page != this.page_count) {
+        const { data, page } = await this.$axios.$get(
+          "https://api.videout.ru" +
+            this.$route.fullPath +
+            "?limit=12&page=" +
+            ++this.page
+        );
+
+        if (this.page_count == page) this.loadBtn = false;
+        this.news = this.news.concat(data);
+
+        return {
+          page
+        };
+      }
     }
   }
 };
