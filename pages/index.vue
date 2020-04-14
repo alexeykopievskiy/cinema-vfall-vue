@@ -1,74 +1,9 @@
 <template>
   <main class="v-fall-main">
-    <!--<section class="v-fall-main-slider owl-carousel">
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-    </section>-->
-    <!--<div class="v-fall-main-slide__controls">
-      <button class="v-fall-main-slide__prev"></button>
-      <button class="v-fall-main-slide__next"></button>
-    </div>-->
     <div
       class="v-fall__container v-fall__container--white v-fall__container--main"
       style="padding-top: 10px; margin-top: 10px;"
     >
-      <section class="v-fall-main-block">
-        <h2 class="v-fall-main-block__header">РЕКОМЕНДУЕМ ПОСМОТРЕТЬ</h2>
-        <div class="v-fall-main-block__container" v-if="films">
-          <a
-            @click.prevent="openVideo(item.url)"
-            v-for="item in recommendations.slice(0, 6)"
-            :key="item.id"
-            class="v-fall-main-block__item"
-            href="#"
-          >
-            <img class="v-fall-main-block__img" :src="item.image" alt />
-            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
-            <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">{{item.year}}</span>
-              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
-            </p>
-          </a>
-        </div>
-      </section>
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Фильмы</h2>
         <div class="v-fall-main-block__container" v-if="films">
@@ -88,12 +23,19 @@
           </a>
         </div>
       </section>
-      <!--<section class="v-fall-main-block v-fall-main-block__carousel">
-      <h2 class="v-fall-main-block__header">РЕКОМЕНДУЕМ ПОСМОТРЕТЬ</h2>-->
-      <!--<no-ssr>
+      <section class="v-fall-main-block v-fall-main-block__carousel">
+        <h2 class="v-fall-main-block__header">РЕКОМЕНДУЕМ ПОСМОТРЕТЬ</h2>
         <carousel
+          v-if="isNuxtReady"
+          :items="4"
+          :loop="true"
+          :margin="26"
+          :autoWidth="true"
+          :nav="false"
+          :dots="false"
           class="v-fall-main-block__container v-fall-main-block__container-carousel"
         >
+          <button slot="prev" class="v-fall-main-block__carousel-left"></button>
           <a
             @click.prevent="openVideo(i)"
             v-for="item in recommendations"
@@ -101,20 +43,17 @@
             class="v-fall-main-block__item v-fall-main-block__item--lg"
             href="#"
           >
-            <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
             </p>
           </a>
+          <button slot="next" class="v-fall-main-block__carousel-right"></button>
         </carousel>
-      </no-ssr>-->
-      <!--<div class="v-fall-main-block__carousel-btn">
-          <button class="v-fall-main-block__carousel-left"></button>
-          <button class="v-fall-main-block__carousel-right"></button>
-        </div>
-      </section>-->
+        <div class="v-fall-main-block__carousel-btn"></div>
+      </section>
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Мультфильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
@@ -156,7 +95,8 @@
 </template>
 
 <script>
-//import carousel from 'vue-owl-carousel'
+const carousel = () =>
+  window && window !== undefined ? import("v-owl-carousel") : null;
 let requestUrl = "https://api.videout.ru";
 let requestNew =
   "https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate";
@@ -165,14 +105,34 @@ let requestCartoons = "https://api.videout.ru/search/?genre=73";
 let requestNews = "https://api.videout.ru/news";
 
 export default {
+  components: {
+    carousel
+  },
   data: () => {
     return {
       source: null,
       hot: null,
       films: null,
       cartoons: null,
-      news: null
+      news: null,
+      isNuxtReady: false
     };
+  },
+  beforeCreate() {
+    console.log("before create");
+  },
+  mounted() {
+    const vm = this;
+    //this.$nextTick(() => {
+    //this.$nuxt.$loading.start();
+    //});
+
+    if (process.browser) {
+      window.onNuxtReady(app => {
+        console.log("Nuxt ready!");
+        vm.isNuxtReady = true;
+      });
+    }
   },
   methods: {
     openVideo(i) {
@@ -184,12 +144,18 @@ export default {
   },
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
+    let responseNews = await $axios.get(requestNews);
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
       cartoons: response.data.cartoons,
-      news: response.data.news
+      news: responseNews.data.data
     };
+  },
+  watch: {
+    films: function(newValue) {
+      console.log(newValue, "aaa");
+    }
   }
 };
 </script>
@@ -255,5 +221,19 @@ export default {
       }
     }
   }
+}
+.v-fall-main-block__container-carousel > span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.owl-carousel.owl-theme + span {
+  left: initial;
+  right: 0;
+}
+
+.owl-carousel.owl-loaded {
+  display: flex!important;
 }
 </style>

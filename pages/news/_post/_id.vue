@@ -6,7 +6,7 @@
         <div class="v-fall-article-block__poster">
           <img
             class="v-fall-article-block__img"
-            style="width: 800px"
+            style="width: 100%"
             v-if="article"
             :src="article.poster"
             alt
@@ -51,9 +51,7 @@
             >Многочисленные награды фильму — в том числе и цеховые, например за операторскую работу — доказывают, что это не так. «Рома» снят как обычное кино. К тому же среди номинантов этого года был «правильный» аналог Ромы — «Холодная война» Павла Павликовского, такой же черно-белый арт-ретрофильм на иностранном языке, только вышедший в нормальный кинотеатральный прокат (и с неплохими результатами). Три номинации («Лучший режиссер», «Лучший оператор» и «Лучший иностранный фильм») и ни одного приза — очевидно, без колоссальных усилий Netflix у Куарона был бы аналогичный оскаровский счет (даже уже имеющийся у режиссера «Оскар» за голливудское космическое кино с Сандрой Буллок и Джорджем Клуни вряд ли бы что-то серьезно изменил в судьбе «Ромы»).</p>-->
           </div>
           <div class="v-fall-article-block__content--right">
-            <!--<div class="v-fall-article-block__promo">
-              <img src="~assets/img/promo.jpg" />
-            </div>-->
+            <div class="v-fall-article-block__promo" v-if="ad" v-html="ad"></div>
             <div class="v-fall-article-block__related" v-if="related">
               <p class="v-fall-article-block__related-header">Смотрите также</p>
               <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
@@ -73,7 +71,8 @@ export default {
   data() {
     return {
       article: null,
-      related: null
+      related: null,
+      ad: null
     };
   },
   mounted() {
@@ -82,6 +81,7 @@ export default {
       .then(response => {
         this.article = response.article;
         this.related = response.related;
+        this.ad = response.ad;
       });
   }
 };
