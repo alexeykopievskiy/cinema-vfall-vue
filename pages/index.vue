@@ -97,11 +97,6 @@
 const carousel = () =>
   window && window !== undefined ? import("v-owl-carousel") : null;
 let requestUrl = "https://api.videout.ru";
-let requestNew =
-  "https://api.videout.ru/search/?genre=0&year=2019&country=0&sorting=rate";
-let requestFilms = "https://api.videout.ru/search/";
-let requestCartoons = "https://api.videout.ru/search/?genre=73";
-let requestNews = "https://api.videout.ru/news";
 
 export default {
   components: {
@@ -110,25 +105,17 @@ export default {
   data: () => {
     return {
       source: null,
-      hot: null,
       films: null,
       cartoons: null,
       news: null,
       isNuxtReady: false
     };
   },
-  beforeCreate() {
-    console.log("before create");
-  },
   mounted() {
     const vm = this;
-    //this.$nextTick(() => {
-    //this.$nuxt.$loading.start();
-    //});
 
     if (process.browser) {
       window.onNuxtReady(app => {
-        console.log("Nuxt ready!");
         vm.isNuxtReady = true;
       });
     }
@@ -143,13 +130,12 @@ export default {
   },
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
-    let responseNews = await $axios.get(requestNews);
     console.log(response, "res");
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
       cartoons: response.data.cartoons,
-      news: responseNews.data.data
+      news: response.data.news
     };
   }
 };

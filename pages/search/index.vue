@@ -46,11 +46,14 @@ export default {
     },
     async loadMore() {
       if (this.page != this.page_count) {
+        const symbol = this.$route.fullPath.slice(-1) ==
+            "/"
+            ? "?"
+            : "&"
         const { data, page } = await this.$axios.$get(
           "https://api.videout.ru" +
             this.$route.fullPath +
-            "&limit=24&page=" +
-            ++this.page
+            symbol + "limit=24&page=" + ++this.page
         );
 
         if (this.page_count == page) this.loadBtn = false;
@@ -81,8 +84,10 @@ export default {
       );
       this.videos = data;
 
+      this.page = 1
+      this.loadBtn = true
+
       return {
-        page,
         page_count
       };
     }
