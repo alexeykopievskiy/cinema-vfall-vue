@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .page-loader {
   position: fixed;
   top: 0;

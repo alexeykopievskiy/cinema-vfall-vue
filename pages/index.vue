@@ -130,7 +130,7 @@ export default {
   },
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
-    console.log(response, "res");
+    //console.log(response, "res");
     return {
       recommendations: response.data.recommendations,
       films: response.data.movies,
