@@ -129,9 +129,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.v-fall-main-block__parent {
-  min-height: 140px;
-}
-</style>
