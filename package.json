@@ -13,9 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
-    "nuxt": "^2.0.0",
-    "v-owl-carousel": "^1.0.8",
-    "vue-owl-carousel": "^2.0.3"
+    "nuxt": "^2.0.0"
   },
   "devDependencies": {
     "node-sass": "^4.13.1",

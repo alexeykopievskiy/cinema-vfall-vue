@@ -274,8 +274,7 @@ export default {
 .v-fall-main-block__container {
   width: 95%;
 }
-
-.owl-carousel .owl-item img {
+.v-fall-main-slider.owl-carousel .owl-item img {
   height: 100%;
   min-width: 1330px;
 }
