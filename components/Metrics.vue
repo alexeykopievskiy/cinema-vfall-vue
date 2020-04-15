@@ -39,13 +39,11 @@ export default {
   async mounted() {
     const response = await this.$axios.$get("https://api.videout.ru/source");
 
-    if (response.couner != null) {
+    if (response.counter != null) {
       const { yandex_metrica, google_analytics } = response.counter;
 
-      return {
-        yandex_id: yandex_metrica,
-        google_id: google_analytics
-      };
+      this.yandex_id = yandex_metrica,
+      this.google_id = google_analytics
     }
   }
 };
