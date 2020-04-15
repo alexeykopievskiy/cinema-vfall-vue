@@ -1,7 +1,10 @@
 <template>
-  <form class="v-fall-header__search">
-    <input class="v-fall-header__input" type="text" placeholder="Найти" />
-  </form>
+  <div style="width: 291px">
+    <!-- temporary hided -->
+    <!--<form class="v-fall-header__search">
+      <input class="v-fall-header__input" type="text" placeholder="Найти" />
+    </form>-->
+  </div>
 </template>
 
 <style lang="scss">
