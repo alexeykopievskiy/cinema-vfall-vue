@@ -75,7 +75,6 @@
       </section>
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Новости</h2>
-        <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
         <div class="v-fall-main-block__container" v-if="news">
           <a
             @click.prevent="openNews(item.url)"
@@ -108,6 +107,7 @@ export default {
       films: null,
       cartoons: null,
       news: null,
+      posters: null,
       isNuxtReady: false
     };
   },
@@ -130,12 +130,13 @@ export default {
   },
   async asyncData({ $axios, params }) {
     let response = await $axios.get(requestUrl);
-    //console.log(response, "res");
+    const { recommendations, movies, cartoons, news, posters } = response.data;
     return {
-      recommendations: response.data.recommendations,
-      films: response.data.movies,
-      cartoons: response.data.cartoons,
-      news: response.data.news
+      recommendations,
+      films: movies,
+      cartoons,
+      news,
+      posters
     };
   }
 };
