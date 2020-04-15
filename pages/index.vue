@@ -1,44 +1,19 @@
 <template>
   <main class="v-fall-main">
-    <section class="v-fall-main-slider owl-carousel">
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
+    <section class="v-fall-main-slider owl-carousel" v-if="posters">
+      <div
+        @click="openVideo(item.url)"
+        v-for="item in posters"
+        :key="item.id"
+        class="v-fall-main-slide"
+      >
+        <img :src="item.image" alt />
         <div class="v-fall-main-slide__content">
           <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
+            <span class="v-fall-main-slide__text">{{item.year}}</span>
+            <span class="v-fall-main-slide__text">{{item.category.join(', ')}}</span>
           </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
-        </div>
-      </div>
-      <div class="v-fall-main-slide">
-        <img src="~assets/img/slide1.jpg" alt />
-        <div class="v-fall-main-slide__content">
-          <p class="v-fall-main-slide__label">
-            <span class="v-fall-main-slide__text">2019</span>
-            <span class="v-fall-main-slide__text">Мелодрамма</span>
-          </p>
-          <h3 class="v-fall-main-slide__title">Фаворитка</h3>
+          <h3 class="v-fall-main-slide__title">{{item.title}}</h3>
         </div>
       </div>
     </section>
@@ -74,36 +49,18 @@
         <div
           class="v-fall-main-block__container v-fall-main-block__container-carousel owl-carousel"
         >
-          <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-            <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
+          <a
+            @click.prevent="openVideo(item.url)"
+            v-for="item in recommendations"
+            :key="item.id"
+            class="v-fall-main-block__item v-fall-main-block__item--lg"
+            href="#"
+          >
+            <img class="v-fall-main-block__img" :src="item.image" alt />
+            <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
-            </p>
-          </a>
-          <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-            <img class="v-fall-main-block__img" src="~assets/img/img6.jpg" alt />
-            <h3 class="v-fall-main-block__title">Стекло</h3>
-            <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2019</span>
-              <span class="v-fall-main-block__elem">Боевик</span>
-            </p>
-          </a>
-          <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-            <img class="v-fall-main-block__img" src="~assets/img/img7.jpg" alt />
-            <h3 class="v-fall-main-block__title">Море соблазна</h3>
-            <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2019</span>
-              <span class="v-fall-main-block__elem">Боевик</span>
-            </p>
-          </a>
-          <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-            <img class="v-fall-main-block__img" src="~assets/img/img8.jpg" alt />
-            <h3 class="v-fall-main-block__title">Фаворитка</h3>
-            <p class="v-fall-main-block__content">
-              <span class="v-fall-main-block__elem">2011</span>
-              <span class="v-fall-main-block__elem">Мелодрамма</span>
+              <span class="v-fall-main-block__elem">{{item.year}}</span>
+              <span class="v-fall-main-block__elem">{{item.category.join(', ')}}</span>
             </p>
           </a>
         </div>
@@ -115,7 +72,10 @@
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Мультфильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
-        <div class="v-fall-main-block__container v-fall-main-block__container-carousel--default owl-carousel" v-if="cartoons">
+        <div
+          class="v-fall-main-block__container v-fall-main-block__container-carousel--default owl-carousel"
+          v-if="cartoons"
+        >
           <a
             @click.prevent="openVideo(item.url)"
             v-for="item in cartoons.slice(0, 6)"
@@ -314,4 +274,14 @@ export default {
 .v-fall-main-block__container {
   width: 95%;
 }
+
+.owl-carousel .owl-item img {
+  height: 100%;
+  min-width: 1330px;
+}
+
+.v-fall-main-slide {
+  height: 479px;
+}
+
 </style>

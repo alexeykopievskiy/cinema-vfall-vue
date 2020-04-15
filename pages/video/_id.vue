@@ -55,36 +55,18 @@
           <div
             class="v-fall-main-block__container v-fall-main-block__container-carousel owl-carousel"
           >
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img5.jpg" alt />
-              <h3 class="v-fall-main-block__title">Фаворитка</h3>
+            <a
+              @click.prevent="openVideo(item.url)"
+              v-for="item in recommendations"
+              :key="item.id"
+              class="v-fall-main-block__item v-fall-main-block__item--lg"
+              href="#"
+            >
+              <img class="v-fall-main-block__img" :src="item.image" alt />
+              <h3 class="v-fall-main-block__title">{{item.title}}</h3>
               <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2011</span>
-                <span class="v-fall-main-block__elem">Мелодрамма</span>
-              </p>
-            </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img6.jpg" alt />
-              <h3 class="v-fall-main-block__title">Стекло</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2019</span>
-                <span class="v-fall-main-block__elem">Боевик</span>
-              </p>
-            </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img7.jpg" alt />
-              <h3 class="v-fall-main-block__title">Море соблазна</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2019</span>
-                <span class="v-fall-main-block__elem">Боевик</span>
-              </p>
-            </a>
-            <a class="v-fall-main-block__item v-fall-main-block__item--lg" href="#">
-              <img class="v-fall-main-block__img" src="~assets/img/img8.jpg" alt />
-              <h3 class="v-fall-main-block__title">Фаворитка</h3>
-              <p class="v-fall-main-block__content">
-                <span class="v-fall-main-block__elem">2011</span>
-                <span class="v-fall-main-block__elem">Мелодрамма</span>
+                <span class="v-fall-main-block__elem">{{item.year}}</span>
+                <span class="v-fall-main-block__elem">{{item.category.join(', ')}}</span>
               </p>
             </a>
           </div>
@@ -107,7 +89,7 @@ export default {
     return {
       video: null,
       news: null,
-      recommendations: null,
+      recommendations: null
     };
   },
   methods: {
