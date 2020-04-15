@@ -78,7 +78,7 @@
         >
           <a
             @click.prevent="openVideo(item.url)"
-            v-for="item in cartoons.slice(0, 6)"
+            v-for="item in cartoons"
             :key="item.id"
             class="v-fall-main-block__item"
             href="#"
@@ -94,10 +94,13 @@
       </section>
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Новости</h2>
-        <div class="v-fall-main-block__container" v-if="news">
+        <div
+          class="v-fall-main-block__container v-fall-main-block__container-carousel v-fall-main-block__container-carousel--news owl-carousel"
+          v-if="news"
+        >
           <a
             @click.prevent="openNews(item.url)"
-            v-for="item of news.slice(0, 4)"
+            v-for="item of news"
             :key="item.id"
             class="v-fall-main-block__item v-fall-main-block__item--lg"
             href="#"
@@ -283,4 +286,25 @@ export default {
   height: 479px;
 }
 
+.v-fall-main-block__container-carousel {
+  .v-fall-main-block__item--lg .v-fall-main-block__img {
+    height: 400px;
+  }
+}
+
+.v-fall-main-block__container-carousel--news {
+  .v-fall-main-block__item--lg .v-fall-main-block__img {
+    width: auto;
+    height: 350px;
+  }
+}
+
+.v-fall-main-block__item--lg {
+  overflow: hidden;
+
+  .v-fall-main-block__img {
+    width: auto;
+    height: 350px;
+  }
+}
 </style>

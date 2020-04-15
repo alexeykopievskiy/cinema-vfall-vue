@@ -2,13 +2,13 @@
   <main class="v-fall-main">
     <div class="v-fall__container grid grid-column v-fall__container--inner">
       <section class="v-fall__container--white v-fall-inner__block" v-if="video">
-        <h2 class="v-fall-inner__header">{{video.title}}</h2>
-        <h4 class="v-fall-inner__subheader">{{video.subtitle}}</h4>
-        <div
-          class="v-fall-inner__video ut-overroll"
-          style="width: 939px"
-          v-html="video.player_code"
-        ></div>
+        <div class="v-fall-inner__video ut-overroll" style="width: 939px">
+          <div>
+            <h2 class="v-fall-inner__header">{{video.title}}</h2>
+            <h4 class="v-fall-inner__subheader">{{video.subtitle}}</h4>
+          </div>
+          <div v-html="video.player_code"></div>
+        </div>
       </section>
       <section class="v-fall-inner__block v-fall-inner__block-poster" v-if="video">
         <div class="v-fall-inner__content">

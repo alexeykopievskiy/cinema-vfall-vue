@@ -461,6 +461,9 @@ body {
 
     &__video {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &-mask {
         position: absolute;

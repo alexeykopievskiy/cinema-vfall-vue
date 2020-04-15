@@ -6,11 +6,11 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'V-fall - лучшие фильмы в формате HD',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'V-fall - лучшие фильмы в формате HD' }
     ],
     script: [
       { src: 'https://code.jquery.com/jquery-3.4.1.min.js' },
