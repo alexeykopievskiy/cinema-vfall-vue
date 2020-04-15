@@ -11,7 +11,9 @@
             class="v-fall-main-block__item"
             href="#"
           >
-            <img class="v-fall-main-block__img" :src="video.image" alt />
+            <div class="v-fall-main-block__parent">
+              <img class="v-fall-main-block__img" :src="video.image" alt />
+            </div>
             <h3 class="v-fall-main-block__title">{{video.title}}</h3>
             <p class="v-fall-main-block__content">
               <span class="v-fall-main-block__elem">{{video.year}}</span>
@@ -127,3 +129,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.v-fall-main-block__parent {
+  min-height: 140px;
+}
+</style>

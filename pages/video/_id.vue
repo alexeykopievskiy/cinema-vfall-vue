@@ -7,7 +7,7 @@
             <h2 class="v-fall-inner__header">{{video.title}}</h2>
             <h4 class="v-fall-inner__subheader">{{video.subtitle}}</h4>
           </div>
-          <div v-html="video.player_code"></div>
+          <div class="v-fall-inner__video-inside" v-html="video.player_code"></div>
         </div>
       </section>
       <section class="v-fall-inner__block v-fall-inner__block-poster" v-if="video">
@@ -44,7 +44,7 @@
             class="v-fall-main-block__item v-fall-main-block__item--lg"
             href="#"
           >
-            <img class="v-fall-main-block__img" style="width: 294px" :src="item.image" alt />
+            <img class="v-fall-main-block__img" :src="item.image" alt />
             <p class="v-fall-main-block__text">{{item.title}}</p>
           </a>
         </div>
@@ -143,5 +143,16 @@ export default {
 <style lang="scss">
 .v-fall-inner__block-container {
   padding-top: 40px;
+}
+.v-fall-inner__video-inside {
+  width: 100%;
+  max-width: 939px;
+  min-height: 530px;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 530px;
+  }
 }
 </style>

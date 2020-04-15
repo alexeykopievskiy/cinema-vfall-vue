@@ -295,7 +295,7 @@ export default {
 .v-fall-main-block__container-carousel--news {
   .v-fall-main-block__item--lg .v-fall-main-block__img {
     width: auto;
-    height: 350px;
+    height: 284px;
   }
 }
 
@@ -304,7 +304,6 @@ export default {
 
   .v-fall-main-block__img {
     width: auto;
-    height: 350px;
   }
 }
 </style>
