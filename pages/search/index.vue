@@ -15,7 +15,7 @@
             <h3 class="v-fall-main-block__title">{{video.title}}</h3>
             <p class="v-fall-main-block__content">
               <span class="v-fall-main-block__elem">{{video.year}}</span>
-              <span class="v-fall-main-block__elem">{{video.category[0]}}</span>
+              <span class="v-fall-main-block__elem" v-if="video.category">{{video.category[0]}}</span>
             </p>
           </a>
         </div>
@@ -37,7 +37,8 @@ export default {
       loadBtn: true,
       videos: null,
       page: null,
-      page_count: null
+      page_count: null,
+      title: 'Расширенный поиск'
     };
   },
   methods: {
@@ -46,14 +47,13 @@ export default {
     },
     async loadMore() {
       if (this.page != this.page_count) {
-        const symbol = this.$route.fullPath.slice(-1) ==
-            "/"
-            ? "?"
-            : "&"
+        const symbol = this.$route.fullPath.slice(-1) == "/" ? "?" : "&";
         const { data, page } = await this.$axios.$get(
           "https://api.videout.ru" +
             this.$route.fullPath +
-            symbol + "limit=24&page=" + ++this.page
+            symbol +
+            "limit=24&page=" +
+            ++this.page
         );
 
         if (this.page_count == page) this.loadBtn = false;
@@ -66,30 +66,51 @@ export default {
     }
   },
   async asyncData({ $axios, params, route }) {
-    const { data, page, page_count, title } = await $axios.$get(
-      "https://api.videout.ru/" + route.fullPath
-    );
-    if (page_count == 1) this.loadBtn = false;
-    return {
-      videos: data,
-      page,
-      page_count,
-      title
-    };
+    if (route.fullPath.includes("query")) {
+      const query = "/search/ajax/?q=" + route.query.query;
+      const data = await $axios.$get("https://api.videout.ru" + query);
+
+      return {
+        videos: data,
+        loadBtn: false
+      };
+    } else {
+      const { data, page, page_count, title } = await $axios.$get(
+        "https://api.videout.ru/" + route.fullPath
+      );
+      if (page_count == 1) this.loadBtn = false;
+      return {
+        videos: data,
+        page,
+        page_count,
+        title
+      };
+    }
   },
   watch: {
     async $route() {
-      const { data, page, title, page_count } = await this.$axios.$get(
-        "https://api.videout.ru" + this.$route.fullPath
-      );
-      this.videos = data;
+      if (this.$route.fullPath.includes("query")) {
+        const query = "/search/ajax/?q=" + this.$route.query.query;
+        const data = await this.$axios.$get("https://api.videout.ru" + query);
+        this.videos = data;
 
-      this.page = 1
-      this.loadBtn = true
+        this.page = 1;
+        this.loadBtn = false;
+      } else {
+        const query = this.$route.fullPath;
+        const { data, page, title, page_count } = await this.$axios.$get(
+          "https://api.videout.ru" + query
+        );
 
-      return {
-        page_count
-      };
+        this.videos = data;
+
+        this.page = 1;
+        this.loadBtn = true;
+
+        return {
+          page_count
+        };
+      }
     }
   }
 };

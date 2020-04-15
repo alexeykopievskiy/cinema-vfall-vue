@@ -1,11 +1,27 @@
 <template>
   <div style="width: 291px">
-    <!-- temporary hided -->
-    <!--<form class="v-fall-header__search">
-      <input class="v-fall-header__input" type="text" placeholder="Найти" />
-    </form>-->
+    <form @submit.prevent="searchSubmit" class="v-fall-header__search">
+      <input class="v-fall-header__input" v-model="query" type="text" placeholder="Найти" />
+    </form>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      query: null
+    }
+  },
+  methods: {
+    searchSubmit(e) {
+      e.preventDefault()
+      this.$router.push('/search?query=' + this.query)
+      this.query = null
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .v-fall-header__search:before {
