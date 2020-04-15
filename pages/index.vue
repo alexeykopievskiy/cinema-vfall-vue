@@ -49,10 +49,13 @@
     <div class="v-fall__container v-fall__container--white v-fall__container--main">
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Фильмы</h2>
-        <div class="v-fall-main-block__container" v-if="films">
+        <div
+          class="v-fall-main-block__container v-fall-main-block__container-carousel--default owl-carousel"
+          v-if="films"
+        >
           <a
             @click.prevent="openVideo(item.url)"
-            v-for="item in films.slice(0, 6)"
+            v-for="item in films"
             :key="item.id"
             class="v-fall-main-block__item"
             href="#"
@@ -112,7 +115,7 @@
       <section class="v-fall-main-block">
         <h2 class="v-fall-main-block__header">Мультфильмы</h2>
         <p class="v-fall-main-block__subtitle">Коллекция лучших мультфильмов для детей и родителей</p>
-        <div class="v-fall-main-block__container" v-if="cartoons">
+        <div class="v-fall-main-block__container v-fall-main-block__container-carousel--default owl-carousel" v-if="cartoons">
           <a
             @click.prevent="openVideo(item.url)"
             v-for="item in cartoons.slice(0, 6)"
@@ -158,7 +161,7 @@ export default {
       films: null,
       cartoons: null,
       news: null,
-      posters: null,
+      posters: null
     };
   },
   mounted() {
@@ -181,6 +184,16 @@ export default {
       loop: true,
       margin: 26,
       autoWidth: true
+    });
+
+    $(".v-fall-main-block__container-carousel--default").owlCarousel({
+      items: 6,
+      loop: true,
+      margin: 17,
+      autoWidth: true,
+      autoplay: true,
+      autoplayTimeout: 2000,
+      autoplayHoverPause: true
     });
 
     $(".v-fall-main-block__carousel-right").click(function() {
@@ -296,5 +309,9 @@ export default {
 .v-fall-main-block__img {
   width: 100%;
   height: auto;
+}
+
+.v-fall-main-block__container {
+  width: 95%;
 }
 </style>
