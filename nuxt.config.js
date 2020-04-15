@@ -1,4 +1,5 @@
 var nodeExternals = require('webpack-node-externals');
+console.log('config')
 
 export default {
   mode: 'universal',
