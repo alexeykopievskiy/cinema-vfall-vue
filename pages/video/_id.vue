@@ -27,11 +27,10 @@
               </div>
               <div class="v-fall-inner__content-item">
                 <span>Жанр</span>
-                <span>{{video.category_ids}}</span>
+                <span>{{video.category}}</span>
               </div>
             </div>
             <span class="v-fall-inner__content-text">{{video.description}}</span>
-            <!--<span class="v-fall-inner__content-slide">Развернуть</span>-->
           </div>
         </div>
       </section>
@@ -121,7 +120,7 @@ export default {
     const { video, news, recommendations } = await $axios.$get(
       "https://api.videout.ru" + route.fullPath
     );
-
+    console.log(video, 'vid')
     return {
       video,
       news,

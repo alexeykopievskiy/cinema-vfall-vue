@@ -18,7 +18,7 @@
             <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
               <span class="v-fall-main-block__elem">{{item.year}}</span>
-              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
+              <span class="v-fall-main-block__elem">{{item.category.join(', ')}}</span>
             </p>
           </a>
         </div>
@@ -47,7 +47,7 @@
             <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
               <span class="v-fall-main-block__elem">{{item.year}}</span>
-              <span class="v-fall-main-block__elem">{{item.category[0]}}</span>
+              <span class="v-fall-main-block__elem">{{item.category.join(', ')}}</span>
             </p>
           </a>
           <button slot="next" class="v-fall-main-block__carousel-right"></button>
@@ -68,7 +68,7 @@
             <h3 class="v-fall-main-block__title">{{item.title}}</h3>
             <p class="v-fall-main-block__content">
               <span class="v-fall-main-block__elem">{{item.year}}</span>
-              <span class="v-fall-main-block__elem">{{item.category}}</span>
+              <span class="v-fall-main-block__elem">{{item.category.join(', ')}}</span>
             </p>
           </a>
         </div>
