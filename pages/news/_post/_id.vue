@@ -69,7 +69,6 @@ export default {
     const { article, related, ad } = await $axios.$get(
       "https://api.videout.ru/news/" + params.post + "/" + params.id
     );
-    console.log(article, "art");
     return {
       article,
       related,
