@@ -1,9 +1,7 @@
 <template>
-  <div style="width: 291px">
-    <form @submit.prevent="searchSubmit" class="v-fall-header__search">
-      <input class="v-fall-header__input" v-model="query" type="text" placeholder="Найти" />
-    </form>
-  </div>
+  <form @submit.prevent="searchSubmit" class="v-fall-header__search">
+    <input class="v-fall-header__input" v-model="query" type="text" placeholder="Найти" />
+  </form>
 </template>
 
 <script>
@@ -11,16 +9,16 @@ export default {
   data() {
     return {
       query: null
-    }
+    };
   },
   methods: {
     searchSubmit(e) {
-      e.preventDefault()
-      this.$router.push('/search?query=' + this.query)
-      this.query = null
+      e.preventDefault();
+      this.$router.push("/search?query=" + this.query);
+      this.query = null;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
