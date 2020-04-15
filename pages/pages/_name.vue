@@ -16,6 +16,18 @@ export default {
       "https://api.videout.ru/pages/" + params.name
     );
     return { name, content };
+  },
+  head() {
+    return {
+      title: this.name,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "V-fall - лучшие фильмы в формате HD"
+        }
+      ]
+    };
   }
 };
 </script>

@@ -38,7 +38,7 @@ export default {
       videos: null,
       page: null,
       page_count: null,
-      title: 'Расширенный поиск'
+      title: "Расширенный поиск"
     };
   },
   methods: {
@@ -86,6 +86,18 @@ export default {
         title
       };
     }
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "V-fall - лучшие фильмы в формате HD"
+        }
+      ]
+    };
   },
   watch: {
     async $route() {

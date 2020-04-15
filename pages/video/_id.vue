@@ -97,6 +97,14 @@ export default {
       this.$router.push(i);
     }
   },
+  head () {
+    return {
+      title: this.video.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.video.description }
+      ]
+    }
+  },
   mounted() {
     $(".v-fall-main-block__container-carousel").owlCarousel({
       items: 4,
@@ -117,6 +125,9 @@ export default {
     });
   },
   async asyncData({ $axios, params, route }) {
+    const response = await $axios.$get(
+      "https://api.videout.ru" + route.fullPath
+    );
     const { video, news, recommendations } = await $axios.$get(
       "https://api.videout.ru" + route.fullPath
     );

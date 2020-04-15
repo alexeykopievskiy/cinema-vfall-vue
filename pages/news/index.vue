@@ -45,6 +45,18 @@ export default {
       page_count
     };
   },
+  head() {
+    return {
+      title: 'Новости',
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "V-fall - лучшие фильмы в формате HD"
+        }
+      ]
+    };
+  },
   methods: {
     openNews(i) {
       this.$router.push(i);
